@@ -1,0 +1,130 @@
+.align {
+  &--left {
+    text-align: left;
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--right {
+    text-align: right;
+  }
+}
+
+.valign {
+  &--top {
+    vertical-align: top;
+  }
+
+  &--middle {
+    vertical-align: middle;
+  }
+
+  &--right {
+    vertical-align: bottom;
+  }
+}
+
+.i-grid {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+
+  &__row {
+    overflow: hidden;
+    position: relative;
+    padding-left: 36px;
+  }
+
+  &__header {
+    background: #fff;
+  }
+
+  &__body {
+    overflow: hidden;
+    margin-top: -1px;
+  }
+
+  &__number {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    table {
+      width: 30px;
+
+      td {
+        overflow: hidden;
+        height: 30px;
+        padding: 6px 3px;
+        border: 1px solid #000;
+        font-size: 14px;
+        text-align: center;
+        @include line;
+      }
+    }
+  }
+
+  &__content {
+    table {
+      width: 100%;
+
+      th {
+        height: 30px;
+        padding: 6px 3px;
+        border: 1px solid #000;
+        font-size: 14px;
+        @include line;
+      }
+
+      td {
+        height: 30px;
+        padding: 6px 3px;
+        border: 1px solid #000;
+        font-size: 14px;
+        @include line;
+      }
+    }
+  }
+
+  &__scroll {
+    &-container {
+      background: #eee;
+
+      &--horizon {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        width: 16px;
+        height: calc(100% - 16px);
+      }
+
+      &--vertical {
+        position: relative;
+        width: calc(100% - 16px);
+        height: 16px;
+      }
+    }
+
+    &-bar {
+      position: absolute;
+      border-radius: 4px;
+      background: #ccc;
+      cursor: grab;
+
+      &:hover {
+        background: #aaa;
+      }
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+}
+
+.hide {
+  display: none;
+}

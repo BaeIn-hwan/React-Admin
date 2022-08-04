@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+@import './base/fonts';
+@import './base/reset';
+@import './base/mixin';
+@import './base/variable';
+@import './layout';
+@import './common';
+
+/*
+  css rules
+  1. css 순서는 prettier.js 파일 기준으로 정의
+  2. header, aside, footer, loading 등의 가장 큰 덩어리의 layout과 관련된 요소는 layout.scss 파일로 관리
+*/
+
+.blind {
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+}

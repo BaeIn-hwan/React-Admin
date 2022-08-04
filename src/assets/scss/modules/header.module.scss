@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  height: 50px;
+  background: rgb(10 10 10);
+  color: #fff;
+
+  &__title {
+    height: 100%;
+    font-size: 28px;
+  }
+}

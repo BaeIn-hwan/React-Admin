@@ -1,0 +1,39 @@
+.goods {
+  &__link {
+
+  }
+
+  &__thumb {
+    @include line(1);
+  }
+
+  &__order {
+
+  }
+
+  &__image {
+
+  }
+
+  &__info {
+
+  }
+
+  &__brand {
+
+  }
+
+  &__name {
+
+  }
+
+  &__price {
+    &--discount-rate {
+
+    }
+
+    &--sell-price {
+
+    }
+  }
+}

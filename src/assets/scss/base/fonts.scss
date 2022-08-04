@@ -1,0 +1,83 @@
+@font-face {
+  font-weight: 100;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  src: local('NotoSansLight'), url(@/assets/fonts/NotoSansKR-Light.eot);
+  src:
+    url(@/assets/fonts/NotoSansKR-Light.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/NotoSansKR-Light.woff2) format('woff2'),
+    url(@/assets/fonts/NotoSansKR-Light.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  src: local('NotoSansRegular'), url(@/assets/fonts/NotoSansKR-Regular.eot);
+  src:
+    url(@/assets/fonts/NotoSansKR-Regular.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/NotoSansKR-Regular.woff2) format('woff2'),
+    url(@/assets/fonts/NotoSansKR-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  src: local('NotoSansMedium'), url(@/assets/fonts/NotoSansKR-Medium.eot);
+  src:
+    url(@/assets/fonts/NotoSansKR-Medium.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/NotoSansKR-Medium.woff2) format('woff2'),
+    url(@/assets/fonts/NotoSansKR-Medium.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  src: local('NotoSansBold'), url(@/assets/fonts/NotoSansKR-Bold.eot);
+  src:
+    url(@/assets/fonts/NotoSansKR-Bold.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/NotoSansKR-Bold.woff2) format('woff2'),
+    url(@/assets/fonts/NotoSansKR-Bold.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 100;
+  font-family: Roboto;
+  font-style: normal;
+  src: local('RobotoLight'), url(@/assets/fonts/Roboto-Light.eot);
+  src:
+    url(@/assets/fonts/Roboto-Light.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/Roboto-Light.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: Roboto;
+  font-style: normal;
+  src: local('RobotoRegular'), url(@/assets/fonts/Roboto-Regular.eot);
+  src:
+    url(@/assets/fonts/Roboto-Regular.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/Roboto-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: Roboto;
+  font-style: normal;
+  src: local('RobotoMedium'), url(@/assets/fonts/Roboto-Medium.eot);
+  src:
+    url(@/assets/fonts/Roboto-Medium.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/Roboto-Medium.woff) format('woff');
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: Roboto;
+  font-style: normal;
+  src: local('Robotobold'), url(@/assets/fonts/Roboto-bold.eot);
+  src:
+    url(@/assets/fonts/Roboto-bold.eot?#iefix) format('embedded-opentype'),
+    url(@/assets/fonts/Roboto-bold.woff) format('woff');
+}
