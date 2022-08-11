@@ -3,22 +3,30 @@ import { useState } from 'react';
 import CInput from '@/components/form/CInput';
 import CCheckbox from '@/components/form/CCheckbox';
 
+const SampleInput = () => {};
+
 const SampleForm = () => {
   const [inputValue, setInputValue] = useState<string>('');
+
   const [checkboxValue, setCheckboxValue] = useState<boolean>(true);
+
   const [mulitCheckboxValue, setMulitCheckboxValue] = useState<any>([]);
+
   const multiCheckEvent = (e: any) => {
-    console.log(e);
+    let copyMulitCheckboxValue = [...mulitCheckboxValue];
+
     if (!e.target.checked) {
       const idx = mulitCheckboxValue.findIndex(
-        (list) => list == e.target.value,
+        (list: any) => list == e.target.value,
       );
-      mulitCheckboxValue.splice(idx, 1);
-      setMulitCheckboxValue([...mulitCheckboxValue]);
+
+      copyMulitCheckboxValue.splice(idx, 1);
+      setMulitCheckboxValue([...copyMulitCheckboxValue]);
     } else {
-      setMulitCheckboxValue([...mulitCheckboxValue, e.target.value]);
+      setMulitCheckboxValue([...copyMulitCheckboxValue, e.target.value]);
     }
   };
+
   const [radioValue, setRadioValue] = useState('1');
 
   return (

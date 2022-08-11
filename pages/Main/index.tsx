@@ -77,6 +77,10 @@ const MainIndex = () => {
           </BoxCol>
         </BoxRow>
       </BoxContainer>
+
+      <div style={{}}>
+        <div></div>
+      </div>
     </ContentContainer>
   );
 };
