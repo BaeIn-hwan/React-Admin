@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import BoardList from '@/components/ui/ListLayout';
 import requests from '@/apis/requests';
+
+import BreadCrumb from '@/layouts/includes/TheBreadCrumb';
+import BoardList from '@/components/ui/ListLayout';
 
 const NoticeList = () => {
   const [noticeList, setNoticeList] = useState({
@@ -54,24 +56,9 @@ const NoticeList = () => {
     }
   };
 
-  const data = (
-    <div>
-      <span>테스트</span>
-    </div>
-  );
-
   return (
     <div className="board-list">
-      {/* {data.map((list) => {
-        return (
-          <div>
-            {data.map((list2) => (
-              <div key={list2}>{list}</div>
-            ))}
-          </div>
-        );
-      })} */}
-      {data}
+      <BreadCrumb />
       <BoardList
         gridData={noticeList}
         gridOption={{

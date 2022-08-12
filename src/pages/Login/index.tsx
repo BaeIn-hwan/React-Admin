@@ -6,8 +6,8 @@ import { getStorage, removeStorage, setStorage } from '@/composables/storage';
 import CInput from '@/components/form/CInput';
 import CButton from '@/components/form/CButton';
 import CCheckbox from '@/components/form/CCheckbox';
-import { InputError } from '@/styled/CInput';
-import { InputClearBtn } from '@/styled/CButton';
+import { InputError } from '@/styled/Input';
+import { InputClearBtn } from '@/styled/Button';
 
 import styles from '@/assets/scss/modules/login.module.scss';
 
@@ -124,7 +124,7 @@ const Login = () => {
               <CInput
                 type="text"
                 placeholder="ID"
-                target={id}
+                _ref={id}
                 model={userId}
                 maxLength={10}
                 styles={{ height: '46px' }}
@@ -134,7 +134,7 @@ const Login = () => {
               {userId && userId.length && (
                 <CButton
                   type="button"
-                  target={InputClearBtn}
+                  styledName={InputClearBtn}
                   _click={(e: any) => {
                     setUserId('');
                     id.current?.focus();
@@ -153,7 +153,7 @@ const Login = () => {
               <CInput
                 type="password"
                 placeholder="PASSWORD"
-                target={pw}
+                _ref={pw}
                 model={userPw}
                 maxLength={12}
                 styles={{ height: '46px' }}
@@ -163,7 +163,7 @@ const Login = () => {
               {userPw && userPw.length && (
                 <CButton
                   type="button"
-                  target={InputClearBtn}
+                  styledName={InputClearBtn}
                   _click={(e: any) => {
                     setUserPw('');
                     pw.current?.focus();

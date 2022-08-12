@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 
 // layout
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -12,7 +12,11 @@ import NoticeDetail from '@/pages/notice/Detail';
 
 import Login from '@/pages/Login';
 
-import SignIndex from '@/pages/signUp';
+import SignIndex from '@/pages/SignUp';
+
+import SampleIndex from '@/pages/Sample';
+import SampleForm from '@/pages/Sample/Form';
+import SampleLayout from '@/pages/Sample/Layout';
 
 const Router = () => {
   return useRoutes([
@@ -21,8 +25,13 @@ const Router = () => {
       element: <DefaultLayout />,
       children: [
         {
+          element: <Navigate replace to="/index" />,
+          path: '/',
+        },
+        {
           element: <MainIndex />,
           index: true,
+          path: '/index',
         },
         {
           element: <NoticeList />,
@@ -46,6 +55,25 @@ const Router = () => {
         {
           path: 'signUp',
           element: <SignIndex />,
+        },
+      ],
+    },
+    {
+      path: '/sample',
+      element: <SampleIndex />,
+      children: [
+        {
+          path: 'index',
+          element: <SampleIndex />,
+          index: true,
+        },
+        {
+          path: 'form',
+          element: <SampleForm />,
+        },
+        {
+          path: 'layout',
+          element: <SampleLayout />,
         },
       ],
     },

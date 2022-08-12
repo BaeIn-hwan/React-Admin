@@ -1,30 +1,84 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import {
+  BreadCrumb,
+  BreadCrumbList,
+  BreadCrumbItem,
+  BreadCrumbLink,
+  BreadCrumbItemSkeleton,
+  BreadCrumbLinkSkeleton,
+} from '@/styled/BreadCrumb';
+import test from '@/json/location.json';
 
 const breadCrumb = () => {
+  const location = useLocation();
+  const [paths, setPaths] = useState<string[] | []>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const setPathInfo = () => {
+    const fullLocation = test as { location: any };
+    const path = location.pathname
+      .split('/')
+      .filter((depth: string) => (depth !== '' ? depth : null))
+      .map((depth: string) => {
+        return fullLocation?.location.filter((list) => {
+          return list.engName === depth;
+        });
+      });
+
+    setPaths(path);
+  };
+
+  useEffect(() => {
+    // setPathInfo();
+    setLoading(true);
+  }, [location]);
+
+  if (!loading) {
+    return (
+      <BreadCrumb>
+        <h2 className="blind">Breadcrumb</h2>
+
+        <BreadCrumbList>
+          <BreadCrumbItemSkeleton>
+            <BreadCrumbLinkSkeleton></BreadCrumbLinkSkeleton>
+          </BreadCrumbItemSkeleton>
+          <BreadCrumbItemSkeleton>
+            <BreadCrumbLinkSkeleton></BreadCrumbLinkSkeleton>
+          </BreadCrumbItemSkeleton>
+          <BreadCrumbItemSkeleton>
+            <BreadCrumbLinkSkeleton></BreadCrumbLinkSkeleton>
+          </BreadCrumbItemSkeleton>
+        </BreadCrumbList>
+      </BreadCrumb>
+    );
+  }
+
   return (
-    <nav className="breadCrumb">
+    <BreadCrumb>
       <h2 className="blind">Breadcrumb</h2>
 
-      <ul className="breadCrumb__list">
-        <li className="breadCrumb__item">
-          <Link to="/" className="breadCrumb__link">
-            Home
-          </Link>
-        </li>
+      <BreadCrumbList>
+        <BreadCrumbItem>
+          <BreadCrumbLink to="/index">Home</BreadCrumbLink>
+        </BreadCrumbItem>
 
-        <li className="breadCrumb__item">
-          <Link to="/" className="breadCrumb__link">
-            One Depth
-          </Link>
-        </li>
+        <BreadCrumbItem>
+          <BreadCrumbLink to="/index">Home</BreadCrumbLink>
+        </BreadCrumbItem>
 
-        <li className="breadCrumb__item">
-          <Link to="/" className="breadCrumb__link">
-            Two Depth
-          </Link>
-        </li>
-      </ul>
-    </nav>
+        {/* {paths.map((path: string, idx: number) => {
+          return (
+            <li className="breadCrumb__item" key={idx}>
+              <Link to="/" className="breadCrumb__link">
+                {path.korName}
+              </Link>
+            </li>
+          );
+        })} */}
+      </BreadCrumbList>
+    </BreadCrumb>
   );
 };
 

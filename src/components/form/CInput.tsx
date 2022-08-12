@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import CButton from '@/components/form/CButton';
-import { Input, InputError } from '@/styled/CInput';
+import { Input } from '@/styled/Input';
 
 interface PropsInput {
   type: string;
   id?: string;
   classess?: string;
-  target?: object;
+  _ref?: { current: HTMLInputElement };
   placeholder?: string;
   maxLength?: number;
   disabled?: boolean;
@@ -24,7 +23,7 @@ const CInput = ({
   type,
   id,
   classess,
-  target,
+  _ref,
   placeholder,
   maxLength,
   disabled,
@@ -66,7 +65,7 @@ const CInput = ({
         type={type}
         id={id}
         className={classess}
-        ref={target}
+        ref={_ref}
         placeholder={placeholder}
         maxLength={maxLength}
         disabled={disabled}

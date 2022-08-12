@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { getStorage, removeStorage } from '@/composables/storage';
 
-import styles from '@/assets/scss/modules/header.module';
+import styles from '@/assets/scss/modules/header.module.scss';
 
 const TheHeader = () => {
   const navigation = useNavigate();
@@ -16,7 +16,9 @@ const TheHeader = () => {
 
   return (
     <header className={styles['header']} id="header">
-      <h1 className={styles['header__title']}>Title</h1>
+      <h1 className={styles['header__title']}>
+        <Link to="/index">Title</Link>
+      </h1>
 
       <nav className="gnb"></nav>
       {usetoken ? (

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Button } from '@/styled/CButton';
+import { Button } from '@/styled/Button';
 
 interface PropsButton {
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   classess?: string;
   _click?: Function;
-  target?: any;
-  children: React.ReactElement | string;
+  styledName?: undefined;
+  children?: React.ReactElement | string | number | boolean;
 }
 
 const CButton = ({
@@ -17,7 +17,7 @@ const CButton = ({
   classess,
   _click,
   children,
-  target,
+  styledName,
 }: PropsButton) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (_click && typeof _click === 'function') {
@@ -31,7 +31,7 @@ const CButton = ({
       disabled={disabled}
       className={classess}
       onClick={handleClick}
-      as={target}
+      as={styledName}
     >
       {children}
     </Button>
