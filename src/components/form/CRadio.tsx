@@ -1,22 +1,22 @@
 import React from 'react';
 
 import {
-  CheckboxLabel,
-  CheckBox,
-  CheckBoxText,
-  CheckBoxIcon,
-} from '@/styled/form/Checkbox';
+  RadioBoxLabel,
+  RadioBox,
+  RadioBoxIcon,
+  RadioBoxText,
+} from '@/styled/form/Radio';
 
 interface CheckBoxProps {
   label?: string | null;
-  name?: string;
-  checked?: boolean;
+  name: string;
+  checked: boolean;
   model?: string | number | readonly string[] | undefined;
   disabled?: boolean;
   _change?: Function;
 }
 
-const CCheckbox = ({
+const CRadio = ({
   label,
   name,
   model,
@@ -26,27 +26,25 @@ const CCheckbox = ({
 }: CheckBoxProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (_change && typeof _change === 'function') {
-      const value = name ? e : e.target.checked;
-
-      _change(value);
+      _change(e.target.value);
     }
   };
 
   return (
-    <CheckboxLabel>
-      <CheckBox
+    <RadioBoxLabel>
+      <RadioBox
         name={name}
         value={model}
         checked={checked}
         disabled={disabled}
         onChange={handleChange}
       />
-      <CheckBoxText>
-        <CheckBoxIcon />
+      <RadioBoxText>
+        <RadioBoxIcon />
         {label}
-      </CheckBoxText>
-    </CheckboxLabel>
+      </RadioBoxText>
+    </RadioBoxLabel>
   );
 };
 
-export default CCheckbox;
+export default CRadio;

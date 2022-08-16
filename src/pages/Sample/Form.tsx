@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
 import CInput from '@/components/form/CInput';
 import CCheckbox from '@/components/form/CCheckbox';
-import CRadioBox from '@/components/form/CRadiobox';
+import CRadioBox from '@/components/form/CRadio';
+import CButton from '@/components/form/CButton';
+import CToggle from '@/components/form/CToggle';
+import CSelect from '@/components/form/CSelect';
+
+import {
+  SampleContent,
+  SampleSummary,
+  SampleDetails,
+  SampleWrapper,
+} from '@/styled/Sample';
 
 const InputComponent = () => {
   const [inputValue01, setInputValue01] = useState<string>('');
@@ -56,20 +67,77 @@ const InputComponent = () => {
 };
 
 const CheckBoxComponent = () => {
+  interface TermsProps {
+    label: string;
+    isChecked: boolean;
+    isRequired?: boolean;
+  }
+
   const [singleValue, setSingleValue] = useState<boolean>(true);
   const [multiValue, setMultiValue] = useState<string[]>(['유리']);
+  const [terms, setTerms] = useState<TermsProps[]>([
+    {
+      label: '약관01(필수)',
+      isChecked: false,
+      isRequired: true,
+    },
+    {
+      label: '약관02(필수)',
+      isChecked: false,
+      isRequired: true,
+    },
+    {
+      label: '약관03',
+      isChecked: true,
+    },
+  ]);
 
   const multiCheckEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     let copyMulitCheckboxValue = [...multiValue];
 
     if (!e.target.checked) {
-      const idx = multiValue.findIndex((list: any) => list == e.target.value);
+      const idx = multiValue.findIndex(
+        (list: string) => list == e.target.value,
+      );
 
       copyMulitCheckboxValue.splice(idx, 1);
       setMultiValue([...copyMulitCheckboxValue]);
     } else {
       setMultiValue([...copyMulitCheckboxValue, e.target.value]);
     }
+  };
+
+  const termsAllCheckEvent = (flag: boolean) => {
+    const copyTerms = [...terms];
+
+    copyTerms.forEach((item: TermsProps) => {
+      item.isChecked = flag;
+    });
+
+    setTerms(copyTerms);
+  };
+
+  const termsCheckEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const copyTerms = [...terms];
+    const target = copyTerms.find((item) => item.label === e.target.value);
+    if (target?.hasOwnProperty('isChecked')) {
+      target.isChecked = e.target.checked;
+    }
+
+    Object.assign([...copyTerms], target);
+
+    setTerms(copyTerms);
+  };
+
+  const termsSubmit = () => {
+    for (let i = 0; i < terms.length; i++) {
+      if (terms[i].isRequired && !terms[i].isChecked) {
+        alert('필수 항목을 체크해주세요.');
+        return;
+      }
+    }
+
+    alert('Success');
   };
 
   return (
@@ -83,6 +151,8 @@ const CheckBoxComponent = () => {
             setSingleValue(flag);
           }}
         />
+        <br />
+        선택값 : {singleValue === true ? 'true' : 'false'}
       </div>
 
       <div>
@@ -122,7 +192,53 @@ const CheckBoxComponent = () => {
           _change={multiCheckEvent}
         />
         <br />
-        선택값 :{multiValue && multiValue.length ? multiValue.join(', ') : '[]'}
+        선택값 :{' '}
+        {multiValue && multiValue.length ? multiValue.join(', ') : '[]'}
+      </div>
+
+      <div>
+        <CCheckbox
+          label="전체동의"
+          model={String(terms.every((item: TermsProps) => item.isChecked))}
+          checked={terms.every((item: TermsProps) => item.isChecked)}
+          _change={termsAllCheckEvent}
+        />
+        <br />
+
+        {terms.map((item: TermsProps, index: number) => {
+          return (
+            <CCheckbox
+              key={index}
+              label={item.label}
+              model={item.label}
+              name="약관"
+              checked={item.isChecked}
+              _change={termsCheckEvent}
+            />
+          );
+        })}
+        <br />
+        <CButton type="button" _click={termsSubmit}>
+          확인
+        </CButton>
+      </div>
+    </>
+  );
+};
+
+const ToggleBoxComponent = () => {
+  const [toggleValue, setToggleValue] = useState<boolean>(false);
+  return (
+    <>
+      <div>
+        <CToggle
+          checked={toggleValue}
+          _change={(flag: boolean) => {
+            setToggleValue(flag);
+          }}
+        />
+        <br />
+        상태값 : {toggleValue ? 'true' : 'false'}
       </div>
     </>
   );
@@ -168,49 +284,78 @@ const RadioBoxComponent = () => {
   );
 };
 
-const SampleForm = () => {
-  const [mulitCheckboxValue, setMulitCheckboxValue] = useState<any>([]);
-
-  const multiCheckEvent = (e: any) => {
-    let copyMulitCheckboxValue = [...mulitCheckboxValue];
-
-    if (!e.target.checked) {
-      const idx = mulitCheckboxValue.findIndex(
-        (list: any) => list == e.target.value,
-      );
-
-      copyMulitCheckboxValue.splice(idx, 1);
-      setMulitCheckboxValue([...copyMulitCheckboxValue]);
-    } else {
-      setMulitCheckboxValue([...copyMulitCheckboxValue, e.target.value]);
-    }
-  };
-
-  const [radioValue, setRadioValue] = useState('1');
+const SelectBoxComponent = () => {
+  const [selectValue, setSelectValue] = useState<any>('');
+  const selectOptions = [
+    {
+      option: '메뉴01',
+      value: '메뉴01',
+    },
+    {
+      option: '메뉴02',
+      value: '메뉴02',
+    },
+  ];
 
   return (
-    <div className="form">
-      <details open={true}>
-        <summary>INPUT</summary>
-        <div>
+    <>
+      <div>
+        <CSelect
+          model={selectValue}
+          placeholder={'선택하세요.'}
+          options={selectOptions}
+          _change={(value: string) => setSelectValue(value)}
+        />
+        <br />
+        선택값 : {selectValue}
+      </div>
+    </>
+  );
+};
+
+const SampleForm = () => {
+  return (
+    <SampleWrapper>
+      <SampleDetails>
+        <SampleSummary>Input</SampleSummary>
+
+        <SampleContent>
           <InputComponent />
-        </div>
-      </details>
+        </SampleContent>
+      </SampleDetails>
 
-      <details open={true} style={{ marginTop: '50px' }}>
-        <summary>CHECKBOX</summary>
-        <div>
+      <SampleDetails>
+        <SampleSummary>CheckBox</SampleSummary>
+
+        <SampleContent>
           <CheckBoxComponent />
-        </div>
-      </details>
+        </SampleContent>
+      </SampleDetails>
 
-      <details open={true} style={{ marginTop: '50px' }}>
-        <summary>RADIOBOX</summary>
-        <div>
+      <SampleDetails>
+        <SampleSummary>Toggle</SampleSummary>
+
+        <SampleContent>
+          <ToggleBoxComponent />
+        </SampleContent>
+      </SampleDetails>
+
+      <SampleDetails>
+        <SampleSummary>RadioBox</SampleSummary>
+
+        <SampleContent>
           <RadioBoxComponent />
-        </div>
-      </details>
-    </div>
+        </SampleContent>
+      </SampleDetails>
+
+      <SampleDetails open={true}>
+        <SampleSummary>SelectBox</SampleSummary>
+
+        <SampleContent>
+          <SelectBoxComponent />
+        </SampleContent>
+      </SampleDetails>
+    </SampleWrapper>
   );
 };
 

@@ -1,4 +1,6 @@
-export const setStorage = (type: string, key: string, value: any): void => {
+import { TypeAll } from '@/interface/common/common';
+
+const setStorage = (type: string, key: string, value: TypeAll): void => {
   const _value = JSON.stringify(value);
 
   if (type === 'local') {
@@ -8,7 +10,7 @@ export const setStorage = (type: string, key: string, value: any): void => {
   }
 };
 
-export const getStorage = (type: string, key: string): any | null => {
+const getStorage = (type: string, key: string): TypeAll => {
   if (type === 'local') {
     return localStorage.getItem(key)
       ? JSON.parse(localStorage.getItem(key) || '')
@@ -20,7 +22,7 @@ export const getStorage = (type: string, key: string): any | null => {
   }
 };
 
-export const removeStorage = (type: string, key: string): void => {
+const removeStorage = (type: string, key: string): void => {
   if (type === 'local') {
     localStorage.removeItem(key);
   } else {
@@ -28,10 +30,12 @@ export const removeStorage = (type: string, key: string): void => {
   }
 };
 
-export const clearStorage = (type: string): void => {
+const clearStorage = (type: string): void => {
   if (type === 'local') {
     localStorage.clear();
   } else {
     sessionStorage.clear();
   }
 };
+
+export { setStorage, getStorage, removeStorage, clearStorage };

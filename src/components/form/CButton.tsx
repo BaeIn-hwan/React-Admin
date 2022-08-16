@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Button } from '@/styled/Button';
+import { Button } from '@/styled/form/Button';
 
 interface PropsButton {
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   classess?: string;
   _click?: Function;
-  styledName?: undefined;
+  styledName?: any;
   children?: React.ReactElement | string | number | boolean;
 }
 

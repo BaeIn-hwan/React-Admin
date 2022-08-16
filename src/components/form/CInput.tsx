@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input } from '@/styled/Input';
+import { Input } from '@/styled/form/Input';
 
 interface PropsInput {
   type: string;

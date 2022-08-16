@@ -6,8 +6,8 @@ import { getStorage, removeStorage, setStorage } from '@/composables/storage';
 import CInput from '@/components/form/CInput';
 import CButton from '@/components/form/CButton';
 import CCheckbox from '@/components/form/CCheckbox';
-import { InputError } from '@/styled/Input';
-import { InputClearBtn } from '@/styled/Button';
+import { InputError } from '@/styled/form/Input';
+import { InputClearBtn } from '@/styled/form/Button';
 
 import styles from '@/assets/scss/modules/login.module.scss';
 
@@ -135,7 +135,7 @@ const Login = () => {
                 <CButton
                   type="button"
                   styledName={InputClearBtn}
-                  _click={(e: any) => {
+                  _click={(e: React.MouseEvent<HTMLElement>) => {
                     setUserId('');
                     id.current?.focus();
                   }}
@@ -164,7 +164,7 @@ const Login = () => {
                 <CButton
                   type="button"
                   styledName={InputClearBtn}
-                  _click={(e: any) => {
+                  _click={(e: React.MouseEvent<HTMLElement>) => {
                     setUserPw('');
                     pw.current?.focus();
                   }}

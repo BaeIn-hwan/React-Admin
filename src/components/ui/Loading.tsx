@@ -1,5 +1,5 @@
 const Loading = () => {
-  const devideText = (words: string): any => {
+  const devideText = (words: string) => {
     const splitWord = words.split('');
 
     return splitWord.map((word, index) => {
