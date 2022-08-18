@@ -16,6 +16,7 @@ const ToggleIcon = styled.div`
     border-radius: 50%;
     background: #aaa;
     transform: translate3d(0, -50%, 0);
+    transition: left 0.35s;
   }
 `;
 

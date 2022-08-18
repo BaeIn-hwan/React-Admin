@@ -7,7 +7,7 @@ import {
   CheckBoxIcon,
 } from '@/styled/form/Checkbox';
 
-interface CheckBoxProps {
+interface PropsCheckBox {
   label?: string | null;
   name?: string;
   checked?: boolean;
@@ -23,7 +23,7 @@ const CCheckbox = ({
   checked,
   disabled,
   _change,
-}: CheckBoxProps) => {
+}: PropsCheckBox) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (_change && typeof _change === 'function') {
       const value = name ? e : e.target.checked;

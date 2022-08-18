@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useRef, useState } from 'react';
 
 import CInput from '@/components/form/CInput';
 import CCheckbox from '@/components/form/CCheckbox';
@@ -285,7 +284,7 @@ const RadioBoxComponent = () => {
 };
 
 const SelectBoxComponent = () => {
-  const [selectValue, setSelectValue] = useState<any>('');
+  const [selectValue, setSelectValue] = useState<string>('');
   const selectOptions = [
     {
       option: '메뉴01',
@@ -303,11 +302,111 @@ const SelectBoxComponent = () => {
         <CSelect
           model={selectValue}
           placeholder={'선택하세요.'}
+          width="200px"
+          maxWidth="200px"
           options={selectOptions}
           _change={(value: string) => setSelectValue(value)}
         />
         <br />
         선택값 : {selectValue}
+      </div>
+    </>
+  );
+};
+
+const FileComponent = () => {
+  const [singleFile, setSingleFile] = useState<[]>([]);
+  const [multiFile, setMultiFile] = useState<any>([]);
+
+  const uploadFile = (e: any, list: any, setList: any) => {
+    const target = e.target;
+    const defaultSize = 1024;
+    const defaultFormat = 'jpg|jpeg';
+    const defaultCount = 1;
+
+    const targetSize = target.dataset.size ?? defaultSize;
+    const targetFormat = target.dataset.format ?? defaultFormat;
+    const maxFileCount = Number(target.dataset.maxcount ?? defaultCount);
+    const maxFileSize = targetSize * defaultSize ** 2;
+    let saveFile = [];
+    let maxCount = 0;
+
+    for (const [key, value] of Object.entries(target.files)) {
+      const fileValue = value as { size: number; type: string; name: string };
+
+      if (maxCount >= maxFileCount || maxFileCount <= list.length) {
+        alert(`등록 가능한 갯수는 ${maxFileCount}개 입니다.`);
+        continue;
+      }
+
+      // File Size
+      if (fileValue.size > maxFileSize) {
+        alert(`첨부파일은 ${targetSize}MB 이내로 등록 가능합니다.`);
+        continue;
+      }
+
+      // File Type
+      if (!fileValue.type.match(targetFormat.toLocaleLowerCase())) {
+        alert(`파일 확장자는 ${targetFormat.split('|')}만 가능합니다.`);
+        continue;
+      }
+
+      // File Name
+      if (
+        fileValue.name.substring(
+          fileValue.name.indexOf('.') + 1,
+          fileValue.name.lastIndexOf('.'),
+        ).length > 1
+      ) {
+        alert(`허용된 확장자가 아닙니다.\n파일명을 다시 확인해주세요.`);
+        continue;
+      }
+
+      maxCount++;
+      saveFile.push(fileValue);
+    }
+
+    setList([...list, ...saveFile]);
+
+    e.target.value = '';
+  };
+
+  return (
+    <>
+      <div>
+        <input
+          type="file"
+          onChange={(e) => {
+            uploadFile(e, singleFile, setSingleFile);
+          }}
+          data-format="jpg|jpeg|png"
+          data-size="3"
+          accept="image/jpg, image/jpeg, image/png, image/gif"
+        />
+        <div>
+          {singleFile.map((item: any, index: number) => {
+            return <div key={index}>{item.name}</div>;
+          })}
+        </div>
+      </div>
+
+      <div>
+        <input
+          type="file"
+          onChange={(e) => {
+            uploadFile(e, multiFile, setMultiFile);
+          }}
+          data-format="jpg|jpeg|png"
+          data-size="3"
+          data-maxcount="3"
+          accept="image/jpg, image/jpeg, image/png, image/gif"
+          multiple
+        />
+        <div>
+          {multiFile.map((item: any, index: number) => {
+            return <div key={index}>{item.name}</div>;
+          })}
+        </div>
       </div>
     </>
   );
@@ -348,11 +447,19 @@ const SampleForm = () => {
         </SampleContent>
       </SampleDetails>
 
-      <SampleDetails open={true}>
+      <SampleDetails>
         <SampleSummary>SelectBox</SampleSummary>
 
         <SampleContent>
           <SelectBoxComponent />
+        </SampleContent>
+      </SampleDetails>
+
+      <SampleDetails open={true}>
+        <SampleSummary>Input File</SampleSummary>
+
+        <SampleContent>
+          <FileComponent />
         </SampleContent>
       </SampleDetails>
     </SampleWrapper>

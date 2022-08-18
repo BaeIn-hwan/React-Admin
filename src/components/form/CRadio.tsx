@@ -7,7 +7,7 @@ import {
   RadioBoxText,
 } from '@/styled/form/Radio';
 
-interface CheckBoxProps {
+interface PropsRadio {
   label?: string | null;
   name: string;
   checked: boolean;
@@ -23,7 +23,7 @@ const CRadio = ({
   checked,
   disabled,
   _change,
-}: CheckBoxProps) => {
+}: PropsRadio) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (_change && typeof _change === 'function') {
       _change(e.target.value);

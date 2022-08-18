@@ -1,4 +1,11 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { getStorage, removeStorage, setStorage } from '@/composables/storage';
@@ -17,8 +24,8 @@ const Login = () => {
   const id = useRef() as MutableRefObject<HTMLInputElement>;
   const pw = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+  const [userId, setUserId] = useState<string>('');
+  const [userPw, setUserPw] = useState<string>('');
 
   const [errorId, setErrorId] = useState<string | undefined>('');
   const [errorPw, setErrorPw] = useState<string | undefined>('');
@@ -101,7 +108,7 @@ const Login = () => {
   const isSaveId = () => {
     const getId = getStorage('local', 'idSave');
 
-    if (getId) {
+    if (getId && typeof getId === 'string') {
       setSaveId(true);
       setUserId(getId);
     }

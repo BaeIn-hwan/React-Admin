@@ -1,6 +1,22 @@
 import { SelectLabel, SelectText, SelectBox } from '@/styled/form/Select';
 
-const CSelect = ({ model, placeholder, options, _change }: any) => {
+interface PropsSelect {
+  model: string;
+  placeholder: string;
+  width?: string;
+  maxWidth?: string;
+  options: [];
+  _change: Function;
+}
+
+const CSelect = ({
+  model,
+  placeholder,
+  width,
+  maxWidth,
+  options,
+  _change,
+}: any) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (_change && typeof _change === 'function') {
       _change(e.target.value);
@@ -8,7 +24,7 @@ const CSelect = ({ model, placeholder, options, _change }: any) => {
   };
 
   return (
-    <SelectLabel>
+    <SelectLabel style={{ width, maxWidth }}>
       <SelectText>{model === '' ? placeholder : model}</SelectText>
 
       <SelectBox placeholder={placeholder} onChange={handleChange}>

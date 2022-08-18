@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { singleLine, multiLine } from '@/styled/common';
 
 const SelectLabel = styled.label`
   display: inline-block;
@@ -8,9 +9,12 @@ const SelectLabel = styled.label`
 
 const SelectText = styled.span`
   display: block;
+  min-width: 100px;
   padding: 10px;
   border: 1px solid #000;
   font-size: 14px;
+
+  ${singleLine}
 `;
 
 const SelectBox = styled.select`
