@@ -12,11 +12,12 @@ import NoticeDetail from '@/pages/notice/Detail';
 
 import Login from '@/pages/Login';
 
-import SignIndex from '@/pages/SignUp';
+import ErrorIndex from '@/pages/Error';
 
 import SampleIndex from '@/pages/Sample';
 import SampleForm from '@/pages/Sample/Form';
 import SampleLayout from '@/pages/Sample/Layout';
+import SampleModal from '@/pages/Sample/Modal';
 
 const Router = () => {
   return useRoutes([
@@ -52,10 +53,6 @@ const Router = () => {
           element: <Login />,
           index: true,
         },
-        {
-          path: 'signUp',
-          element: <SignIndex />,
-        },
       ],
     },
     {
@@ -75,7 +72,15 @@ const Router = () => {
           path: 'layout',
           element: <SampleLayout />,
         },
+        {
+          path: 'modal',
+          element: <SampleModal />,
+        },
       ],
+    },
+    {
+      path: '*',
+      element: <ErrorIndex />,
     },
   ]);
 };

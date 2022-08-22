@@ -6,6 +6,7 @@ import CRadioBox from '@/components/form/CRadio';
 import CButton from '@/components/form/CButton';
 import CToggle from '@/components/form/CToggle';
 import CSelect from '@/components/form/CSelect';
+import CFile from '@/components/form/CFile';
 
 import {
   SampleContent,
@@ -316,95 +317,89 @@ const SelectBoxComponent = () => {
 
 const FileComponent = () => {
   const [singleFile, setSingleFile] = useState<[]>([]);
-  const [multiFile, setMultiFile] = useState<any>([]);
+  const [multiFile, setMultiFile] = useState<[]>([]);
 
-  const uploadFile = (e: any, list: any, setList: any) => {
-    const target = e.target;
-    const defaultSize = 1024;
-    const defaultFormat = 'jpg|jpeg';
-    const defaultCount = 1;
+  const fileUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    beforeFileList: [],
+    fileList: [],
+    setFile: Function,
+  ) => {
+    setFile([...beforeFileList, ...fileList]);
+  };
 
-    const targetSize = target.dataset.size ?? defaultSize;
-    const targetFormat = target.dataset.format ?? defaultFormat;
-    const maxFileCount = Number(target.dataset.maxcount ?? defaultCount);
-    const maxFileSize = targetSize * defaultSize ** 2;
-    let saveFile = [];
-    let maxCount = 0;
+  const fileRemove = (
+    e: React.MouseEvent<HTMLElement>,
+    beforeFileList: [],
+    setFileList: Function,
+    idx: number,
+  ) => {
+    let copyFileList = [...beforeFileList];
 
-    for (const [key, value] of Object.entries(target.files)) {
-      const fileValue = value as { size: number; type: string; name: string };
+    copyFileList.splice(idx, 1);
 
-      if (maxCount >= maxFileCount || maxFileCount <= list.length) {
-        alert(`등록 가능한 갯수는 ${maxFileCount}개 입니다.`);
-        continue;
-      }
-
-      // File Size
-      if (fileValue.size > maxFileSize) {
-        alert(`첨부파일은 ${targetSize}MB 이내로 등록 가능합니다.`);
-        continue;
-      }
-
-      // File Type
-      if (!fileValue.type.match(targetFormat.toLocaleLowerCase())) {
-        alert(`파일 확장자는 ${targetFormat.split('|')}만 가능합니다.`);
-        continue;
-      }
-
-      // File Name
-      if (
-        fileValue.name.substring(
-          fileValue.name.indexOf('.') + 1,
-          fileValue.name.lastIndexOf('.'),
-        ).length > 1
-      ) {
-        alert(`허용된 확장자가 아닙니다.\n파일명을 다시 확인해주세요.`);
-        continue;
-      }
-
-      maxCount++;
-      saveFile.push(fileValue);
-    }
-
-    setList([...list, ...saveFile]);
-
-    e.target.value = '';
+    setFileList(copyFileList);
   };
 
   return (
     <>
       <div>
-        <input
-          type="file"
-          onChange={(e) => {
-            uploadFile(e, singleFile, setSingleFile);
-          }}
-          data-format="jpg|jpeg|png"
-          data-size="3"
+        <CFile
+          fileFormat="jpg|jpeg|png"
+          fileSize={3}
+          fileList={singleFile}
           accept="image/jpg, image/jpeg, image/png, image/gif"
+          _change={(e: React.ChangeEvent<HTMLInputElement>, newFile: []) => {
+            fileUpload(e, singleFile, newFile, setSingleFile);
+          }}
         />
+
         <div>
           {singleFile.map((item: any, index: number) => {
-            return <div key={index}>{item.name}</div>;
+            return (
+              <div key={index}>
+                <span>{item.name}</span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    fileRemove(e, singleFile, setSingleFile, index);
+                  }}
+                >
+                  삭제
+                </button>
+              </div>
+            );
           })}
         </div>
       </div>
 
       <div>
-        <input
-          type="file"
-          onChange={(e) => {
-            uploadFile(e, multiFile, setMultiFile);
-          }}
-          data-format="jpg|jpeg|png"
-          data-size="3"
-          data-maxcount="3"
+        <CFile
+          fileFormat="jpg|jpeg|png"
+          fileSize={3}
+          fileList={multiFile}
+          maxCount="3"
           accept="image/jpg, image/jpeg, image/png, image/gif"
-          multiple
+          isMultiple={true}
+          _change={(e: React.ChangeEvent<HTMLInputElement>, newFile: []) => {
+            fileUpload(e, multiFile, newFile, setMultiFile);
+          }}
         />
         <div>
           {multiFile.map((item: any, index: number) => {
-            return <div key={index}>{item.name}</div>;
+            return (
+              <div key={index}>
+                <span>{item.name}</span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    fileRemove(e, multiFile, setMultiFile, index);
+                  }}
+                >
+                  삭제
+                </button>
+              </div>
+            );
           })}
         </div>
       </div>

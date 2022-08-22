@@ -1,5 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+
 const ErrorIndex = () => {
-  return <div className="error">에러 페이지 입니다.</div>;
+  const navigator = useNavigate();
+
+  const goMain = () => {
+    navigator(-1);
+  };
+
+  return (
+    <div className="error">
+      <p>요청하신 페이지를 찾을 수 없습니다.</p>
+      <button type="button" onClick={goMain}>
+        메인으로
+      </button>
+    </div>
+  );
 };
 
 export default ErrorIndex;

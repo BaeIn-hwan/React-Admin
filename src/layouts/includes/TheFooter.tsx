@@ -1,7 +1,7 @@
 const TheFooter = () => {
   return (
     <footer className="footer" id="footer">
-      헤더
+      푸터
     </footer>
   );
 };
