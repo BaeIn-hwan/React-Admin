@@ -2,11 +2,21 @@ import CModal from '@/components/ui/CModal';
 
 import { ModalText, ModalButton } from '@/styled/ui/Modal';
 
-const CAlert = ({ isOpen, handleClose }) => {
+interface PropsAlert {
+  isBackgroundClose?: boolean;
+  content: string;
+  _click: Function;
+}
+
+const CAlert = ({ isBackgroundClose, content, _click }: PropsAlert) => {
+  const handleClose = () => {
+    _click(false);
+  };
+
   return (
-    <CModal isOpen={isOpen}>
+    <CModal isBackgroundClose={isBackgroundClose} _click={_click}>
       <>
-        <ModalText>내용</ModalText>
+        <ModalText>{content}</ModalText>
         <ModalButton>
           <button type="button" onClick={handleClose}>
             확인
