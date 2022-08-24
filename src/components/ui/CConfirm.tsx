@@ -3,6 +3,7 @@ import CModal from '@/components/ui/CModal';
 import { ModalText, ModalButton } from '@/styled/ui/Modal';
 
 interface PropsAlert {
+  isBackground?: boolean;
   isBackgroundClose?: boolean;
   content: string;
   cancel?: string;
@@ -11,6 +12,7 @@ interface PropsAlert {
 }
 
 const CConfirm = ({
+  isBackground,
   isBackgroundClose,
   content,
   cancel,
@@ -22,11 +24,15 @@ const CConfirm = ({
   };
 
   const handleSuccess = () => {
-    _click(false);
+    _click(true);
   };
 
   return (
-    <CModal isBackgroundClose={isBackgroundClose} _click={_click}>
+    <CModal
+      isBackground={isBackground}
+      isBackgroundClose={isBackgroundClose}
+      _click={_click}
+    >
       <>
         <ModalText>{content}</ModalText>
         <ModalButton>

@@ -1,101 +1,127 @@
 import { useMemo, useState } from 'react';
 
-import CButton from '../form/CButton';
-
 import { Pagination } from '@/styled/ui/Pagination';
+
+import { PageInfo } from '@/interface/common/common';
 
 interface PropsPaging {
   pageInfo: PageInfo;
   handlePaging: Function;
 }
 
-interface PageInfo {
-  list: number;
-  limitList: number;
-  totalList: number;
-  showList: number;
-  currentPage: number;
-  showPageRow: number;
-}
-
 const CPagination = ({ pageInfo, handlePaging }: PropsPaging) => {
   /**
    * list : 리스트 시작 index
-   * maxList: 리스트 마지막 index
+   * limitList: 리스트 마지막 index
    * totalList: 리스트 전체 갯수
-   * showlist: 리스트 보여줄 갯수
    * currentPage: 현재 페이지 번호
    * showPageRow: 페이징 노출 갯수
    */
-  console.log('pageInfo', pageInfo);
-  const { list, limitList, totalList, showList, currentPage, showPageRow } =
-    pageInfo;
+  const { limitList, totalList, currentPage, showPageRow } = pageInfo;
 
-  // 페이징 총 길이
-  const pageLength = Math.ceil(totalList / showList);
-  // 페이징 그룹
-  let pageGroupNum = 1;
-  let pageArray = [];
+  /** 페이지 전체 길이 */
+  const pageLength = Math.ceil(totalList / limitList);
+  /** 페이지 전체 길이의 마지막 */
+  const pageLastIndex = Math.ceil(pageLength / showPageRow);
+  /** 페이지 노출 group 갯수 */
+  let pageGrounNum = Math.ceil(currentPage / showPageRow);
+  /** 노출할 페이지 배열 */
+  let pages: number[] | [] = [];
 
-  const movePage = (e) => {
+  const eventClick = (current: number) => {
     handlePaging({
-      list: list + showList,
-      limitList: limitList + showList,
+      list: 1 + limitList * (current - 1),
+      limitList,
       totalList,
-      showList,
-      currentPage: currentPage + 1,
+      currentPage: current,
+      showPageRow,
     });
   };
+
+  const setPagination = () => {
+    let pageRow = [];
+
+    for (let i = 1; i <= pageLength; i++) {
+      pageRow.push(i);
+    }
+
+    pages = pageRow.slice(
+      (pageGrounNum - 1) * showPageRow,
+      showPageRow * pageGrounNum,
+    );
+  };
+
+  setPagination();
 
   return (
     <Pagination>
       <button
         type="button"
-        onClick={(e) => {}}
+        disabled={1 >= pageGrounNum ? true : false}
+        onClick={() => eventClick(1)}
         style={{ width: '20px', height: '20px', border: '1px solid #000' }}
       >
-        1<span className="blind">First</span>
-      </button>
-      <button
-        type="button"
-        onClick={(e) => {}}
-        style={{ width: '20px', height: '20px', border: '1px solid #000' }}
-      >
-        2<span className="blind">Prev</span>
+        &lt;&lt;
+        <span className="blind">First</span>
       </button>
 
-      {/* <ul style={{ display: 'flex' }}>
-        {pageViewArray.map((list, index) => {
+      <button
+        type="button"
+        disabled={1 >= currentPage ? true : false}
+        onClick={() => eventClick(currentPage - 1)}
+        style={{ width: '20px', height: '20px', border: '1px solid #000' }}
+      >
+        &lt;
+        <span className="blind">Prev</span>
+      </button>
+
+      <ul style={{ display: 'flex' }}>
+        {pages.map((list, index) => {
           return (
-            <li key={index}>
+            <li
+              key={index}
+              onClick={() => eventClick(list)}
+              style={{
+                width: '20px',
+                height: '20px',
+                border: '1px solid #000',
+                background: currentPage === list ? 'gray' : '',
+              }}
+            >
               <a
                 href="#"
-                onClick={(e) => {
-                  movePage(e, list);
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  lineHeight: '18px',
                 }}
+                onClick={(e) => {}}
               >
                 {list}
               </a>
             </li>
           );
         })}
-      </ul> */}
+      </ul>
 
       <button
         type="button"
-        onClick={(e) => {
-          movePage(e);
-        }}
+        disabled={pageLength <= currentPage ? true : false}
+        onClick={() => eventClick(currentPage + 1)}
         style={{ width: '20px', height: '20px', border: '1px solid #000' }}
       >
-        3<span className="blind">Next</span>
+        &gt;
+        <span className="blind">Next</span>
       </button>
+
       <button
         type="button"
-        onClick={(e) => {}}
+        disabled={pageLastIndex <= pageGrounNum ? true : false}
+        onClick={() => eventClick(pageLength)}
         style={{ width: '20px', height: '20px', border: '1px solid #000' }}
       >
-        4<span className="blind">Last</span>
+        &gt;&gt;
+        <span className="blind">Last</span>
       </button>
     </Pagination>
   );

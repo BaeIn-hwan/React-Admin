@@ -3,18 +3,28 @@ import CModal from '@/components/ui/CModal';
 import { ModalText, ModalButton } from '@/styled/ui/Modal';
 
 interface PropsAlert {
+  isBackground?: boolean;
   isBackgroundClose?: boolean;
   content: string;
   _click: Function;
 }
 
-const CAlert = ({ isBackgroundClose, content, _click }: PropsAlert) => {
+const CAlert = ({
+  isBackground,
+  isBackgroundClose,
+  content,
+  _click,
+}: PropsAlert) => {
   const handleClose = () => {
     _click(false);
   };
 
   return (
-    <CModal isBackgroundClose={isBackgroundClose} _click={_click}>
+    <CModal
+      isBackground={isBackground}
+      isBackgroundClose={isBackgroundClose}
+      _click={_click}
+    >
       <>
         <ModalText>{content}</ModalText>
         <ModalButton>

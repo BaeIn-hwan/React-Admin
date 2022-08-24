@@ -16,7 +16,7 @@ const CSelect = ({
   maxWidth,
   options,
   _change,
-}: any) => {
+}: PropsSelect) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (_change && typeof _change === 'function') {
       _change(e.target.value);
@@ -29,11 +29,16 @@ const CSelect = ({
 
       <SelectBox placeholder={placeholder} onChange={handleChange}>
         <option value="">{placeholder}</option>
-        {options.map((option: any, index: number) => (
-          <option value={option.value} key={index}>
-            {option.option}
-          </option>
-        ))}
+        {options.map(
+          (
+            option: { value: string | number; option: string },
+            index: number,
+          ) => (
+            <option value={option.value} key={index}>
+              {option.option}
+            </option>
+          ),
+        )}
       </SelectBox>
     </SelectLabel>
   );

@@ -355,7 +355,7 @@ const FileComponent = () => {
         />
 
         <div>
-          {singleFile.map((item: any, index: number) => {
+          {singleFile.map((item: HTMLInputElement, index: number) => {
             return (
               <div key={index}>
                 <span>{item.name}</span>
@@ -386,7 +386,7 @@ const FileComponent = () => {
           }}
         />
         <div>
-          {multiFile.map((item: any, index: number) => {
+          {multiFile.map((item: HTMLInputElement, index: number) => {
             return (
               <div key={index}>
                 <span>{item.name}</span>

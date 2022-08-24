@@ -35,39 +35,12 @@ const NoticeList = () => {
     ],
     body: [],
   });
+
   const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    requestBoardList();
-  }, []);
-
-  const requestBoardList = async () => {
-    try {
-      const response = await requests({
-        method: 'get',
-        url: `https://jsonplaceholder.typicode.com/users`,
-      });
-
-      if (response && response.data && response.data.length) {
-        setNoticeList({ ...noticeList, body: response.data });
-      }
-    } catch (err) {
-      console.error('RequestBoardList Error.. ', err);
-    }
-  };
 
   return (
     <div className="board-list">
       <BreadCrumb />
-      <BoardList
-        gridData={noticeList}
-        gridOption={{
-          height: '500px',
-          gridOrder: true,
-          verticalScroll: false,
-          horizonScroll: false,
-        }}
-      />
     </div>
   );
 };
